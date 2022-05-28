@@ -8,7 +8,7 @@ import java.util.concurrent.TimeUnit;
  * @version 1.0
  * @since 5/28/2022
  */
-public class AnyAllOfExample {
+public class CombineMultipleFutureExample {
     public static void delay(int seconds) {
         try {
             TimeUnit.SECONDS.sleep(seconds);
@@ -43,15 +43,14 @@ public class AnyAllOfExample {
 
     public static void main(String[] args) {
         long start = System.currentTimeMillis();
-        CompletableFuture<Void> future = CompletableFuture.allOf(future1(), future2(), future3());
-        future.join();
+        CompletableFuture<String> f1 = future1();
+        CompletableFuture<String> f2 = future2();
+        CompletableFuture<String> f3 = future3();
+        String s1 = f1.join();
+        String s2 = f2.join();
+        String s3 = f3.join();
+        System.out.println(s1 + s2 + s3);
         long end = System.currentTimeMillis();
         System.out.println("Time taken: " + (end - start) / 1000);
-
-//        long start = System.currentTimeMillis();
-//        CompletableFuture<Object> future = CompletableFuture.anyOf(future1(), future2(), future3());
-//        System.out.println(future.join());
-//        long end = System.currentTimeMillis();
-//        System.out.println("Time taken: " + (end - start)/1000);
     }
 }
